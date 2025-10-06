@@ -319,7 +319,7 @@ Claude: ✅ Loaded Spanish transcript into context
 
 ### Technical Implementation
 
-- **Command definition**: `.claude/commands/load-yt-transcript.json`
+- **Command definition**: `.claude/commands/load-yt-transcript.md`
 - **Script execution**: Calls `yt-transcript.py` via Bash tool with appropriate arguments
 - **Context loading**: Uses Read tool to load transcript into conversation context
 - **Feature parity**: Supports all flags from underlying Python script:

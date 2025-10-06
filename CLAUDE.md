@@ -46,7 +46,7 @@ This project includes a Claude Code slash command for seamless transcript loadin
 /load-yt-transcript "VIDEO_ID" --output transcript.txt
 ```
 
-**Command location**: `.claude/commands/load-yt-transcript.json`
+**Command location**: `.claude/commands/load-yt-transcript.md`
 
 **Benefits**: Automatically loads transcript into conversation context for immediate AI-assisted analysis, summarization, translation, or other processing.
 
@@ -143,7 +143,7 @@ All error messages go to stderr, exit codes indicate failure.
 claude-code-yt-transcript/
 ├── .claude/
 │   └── commands/
-│       └── load-yt-transcript.json  # Claude Code slash command
+│       └── load-yt-transcript.md    # Claude Code slash command
 ├── CLAUDE.md                        # This file
 ├── spec.md                          # Complete specification
 └── yt-transcript.py                 # Main executable script

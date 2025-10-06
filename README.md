@@ -46,7 +46,7 @@ powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
    mkdir -p ~/.claude/commands/
 
    # Copy the command file
-   cp .claude/commands/load-yt-transcript.json ~/.claude/commands/
+   cp .claude/commands/load-yt-transcript.md ~/.claude/commands/
    ```
 
 4. **Copy the script to your path:**
@@ -77,7 +77,7 @@ cd claude-code-yt-transcript
 mkdir -p ~/.claude/commands/
 
 # Symlink the command (automatically updates with git pulls)
-ln -s "$(pwd)/.claude/commands/load-yt-transcript.json" ~/.claude/commands/
+ln -s "$(pwd)/.claude/commands/load-yt-transcript.md" ~/.claude/commands/
 
 # Install script globally
 sudo ln -s "$(pwd)/yt-transcript.py" /usr/local/bin/yt-transcript
@@ -137,14 +137,14 @@ yt-transcript "VIDEO_ID" --output transcript.txt
 
 1. Check that the file is in the correct location:
    ```bash
-   ls ~/.claude/commands/load-yt-transcript.json
+   ls ~/.claude/commands/load-yt-transcript.md
    ```
 
 2. Restart Claude Code
 
-3. Verify the JSON file is valid:
+3. Verify the command file is valid:
    ```bash
-   cat ~/.claude/commands/load-yt-transcript.json | python -m json.tool
+   cat ~/.claude/commands/load-yt-transcript.md
    ```
 
 ### Script not found (`yt-transcript: command not found`)
@@ -200,7 +200,7 @@ Or use a user-writable location like `~/bin/` (make sure it's in your PATH).
 
 ## Files
 
-- **`.claude/commands/load-yt-transcript.json`** - Claude Code slash command definition
+- **`.claude/commands/load-yt-transcript.md`** - Claude Code slash command definition
 - **`yt-transcript.py`** - Main Python script (UV inline dependencies)
 - **`spec.md`** - Complete technical specification
 - **`CLAUDE.md`** - Development guide for Claude Code
