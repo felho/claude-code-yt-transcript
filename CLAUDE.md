@@ -28,7 +28,31 @@ Subsequent runs use cached dependencies.
 
 ## Development Commands
 
-### Testing the Script
+### Claude Code Integration (Recommended)
+
+This project includes a Claude Code slash command for seamless transcript loading:
+
+```bash
+# Load transcript into Claude Code context
+/load-yt-transcript "https://www.youtube.com/watch?v=VIDEO_ID"
+
+# List available languages
+/load-yt-transcript "VIDEO_ID" --list-languages
+
+# Load specific language
+/load-yt-transcript "VIDEO_ID" --lang es
+
+# Load and save to file
+/load-yt-transcript "VIDEO_ID" --output transcript.txt
+```
+
+**Command location**: `.claude/commands/load-yt-transcript.json`
+
+**Benefits**: Automatically loads transcript into conversation context for immediate AI-assisted analysis, summarization, translation, or other processing.
+
+See `spec.md` for complete command documentation and workflow examples.
+
+### Testing the Script Directly
 
 ```bash
 # Basic usage - download transcript
@@ -113,13 +137,25 @@ All error messages go to stderr, exit codes indicate failure.
 
 ## Important Notes
 
-### Single-File Deployment
+### Project Structure
 
-This is intentionally a single executable file. Do NOT create:
+```
+claude-code-yt-transcript/
+├── .claude/
+│   └── commands/
+│       └── load-yt-transcript.json  # Claude Code slash command
+├── CLAUDE.md                        # This file
+├── spec.md                          # Complete specification
+└── yt-transcript.py                 # Main executable script
+```
+
+### Single-File Core
+
+The core functionality is intentionally a single executable file. Do NOT create:
 - ❌ `requirements.txt`
 - ❌ `pyproject.toml`
 - ❌ Virtual environment directories
-- ❌ Separate config files
+- ❌ Separate config files (except Claude Code commands in `.claude/`)
 
 ### Shebang Requirement
 
