@@ -210,18 +210,150 @@ yt-transcript/
 - ❌ No `venv/` directory
 - ❌ No `.gitignore` for Python artifacts
 
+## Claude Code Integration
+
+### Slash Command: `/load-yt-transcript`
+
+**Purpose**: Load YouTube video transcript into Claude Code context for AI-assisted analysis and processing.
+
+**Description**: Downloads a YouTube video transcript using `yt-transcript.py` and automatically loads it into the active conversation context, enabling immediate analysis, summarization, translation, or other AI-powered operations without manual file management.
+
+### Command Features
+
+**Core Functionality**:
+1. **Load into context**: Download transcript and load into conversation for immediate analysis
+2. **List languages**: Display all available transcript languages for a video
+3. **Specify language**: Download transcript in a specific language (e.g., Spanish, Hungarian, German)
+4. **Save to file**: Optionally save transcript to a file while loading into context
+
+### Usage Examples
+
+```bash
+# Load transcript into context (English with auto-fallback)
+/load-yt-transcript https://www.youtube.com/watch?v=dQw4w9WgXcQ
+
+# Load transcript with video ID only
+/load-yt-transcript dQw4w9WgXcQ
+
+# List available transcript languages
+/load-yt-transcript https://www.youtube.com/watch?v=dQw4w9WgXcQ --list-languages
+
+# Load specific language transcript
+/load-yt-transcript https://www.youtube.com/watch?v=dQw4w9WgXcQ --lang es
+
+# Load transcript and save to file
+/load-yt-transcript https://www.youtube.com/watch?v=dQw4w9WgXcQ --output transcript.txt
+
+# Load Spanish transcript and save to file
+/load-yt-transcript dQw4w9WgXcQ --lang es --output spanish-transcript.txt
+```
+
+### Command Arguments
+
+| Argument | Required | Description | Example |
+|----------|----------|-------------|---------|
+| `url` | Yes | YouTube URL or video ID | `https://www.youtube.com/watch?v=dQw4w9WgXcQ` or `dQw4w9WgXcQ` |
+| `--list-languages` | No | List available transcript languages and exit | `--list-languages` |
+| `--lang CODE` | No | Download specific language (e.g., en, es, hu, de, fr) | `--lang hu` |
+| `--output FILE` | No | Save transcript to file (still loads into context) | `--output transcript.txt` |
+
+### Workflow Examples
+
+**Basic Usage - Load and Analyze**:
+```
+User: /load-yt-transcript https://www.youtube.com/watch?v=dQw4w9WgXcQ
+Claude: ✅ Loaded YouTube transcript into context
+        • Video ID: dQw4w9WgXcQ
+        • Language: English (auto-generated)
+        • Duration: ~8 minutes (156 lines)
+
+        What would you like me to do with this transcript?
+
+User: Summarize the main points in 3 bullet points
+Claude: [Provides concise summary from loaded transcript]
+```
+
+**Check Available Languages**:
+```
+User: /load-yt-transcript dQw4w9WgXcQ --list-languages
+Claude: Available transcripts for video dQw4w9WgXcQ:
+        • en (English) [auto-generated]
+        • es (Spanish) [auto-generated]
+        • hu (Hungarian) [manual]
+        • de (German) [auto-generated]
+
+        Use --lang CODE to load a specific language.
+```
+
+**Load Specific Language**:
+```
+User: /load-yt-transcript dQw4w9WgXcQ --lang hu
+Claude: ✅ Loaded Hungarian transcript into context
+        • Video ID: dQw4w9WgXcQ
+        • Language: Hungarian (manual)
+        • Duration: ~8 minutes (143 lines)
+
+        Ready for analysis, translation, or any other task.
+```
+
+**Load and Save to File**:
+```
+User: /load-yt-transcript dQw4w9WgXcQ --lang es --output spanish-transcript.txt
+Claude: ✅ Loaded Spanish transcript into context
+        💾 Saved to: spanish-transcript.txt
+        • Video ID: dQw4w9WgXcQ
+        • Language: Spanish (auto-generated)
+        • Duration: ~8 minutes (149 lines)
+
+        Transcript is now available in context and saved to file.
+```
+
+### Benefits
+
+- **Zero friction**: No manual download/upload/file management steps
+- **Context persistence**: Transcript stays loaded for multiple operations
+- **Language flexibility**: List available languages, choose specific language
+- **File preservation**: Optionally save transcript while keeping it in context
+- **Flexible analysis**: Summarize, translate, extract, compare, annotate
+- **Seamless integration**: Full feature parity with underlying `yt-transcript.py` script
+
+### Technical Implementation
+
+- **Command definition**: `.claude/commands/load-yt-transcript.json`
+- **Script execution**: Calls `yt-transcript.py` via Bash tool with appropriate arguments
+- **Context loading**: Uses Read tool to load transcript into conversation context
+- **Feature parity**: Supports all flags from underlying Python script:
+  - `--list-languages`: Display available transcripts
+  - `--lang CODE`: Specify language
+  - `--output FILE`: Save to file
+- **Error handling**: Propagates clear error messages from script (unavailable video, missing language, etc.)
+
+### Use Cases
+
+1. **Content Analysis**: Summarize video content without watching
+2. **Translation**: Translate transcript to other languages
+3. **Quote Extraction**: Find and extract specific quotes or statements
+4. **Technical Documentation**: Extract code examples, commands, or technical details
+5. **Language Learning**: Analyze content in non-native languages
+6. **Accessibility**: Convert video content to readable text format
+7. **Research**: Analyze multiple video transcripts for patterns or themes
+8. **SEO/Content**: Extract keywords, topics, and themes from video content
+
 ## Future Enhancements (Out of Scope v1)
 
 - Subtitle format options (SRT, VTT, JSON)
-- Batch processing multiple URLs
+- Batch processing multiple URLs (`/load-yt-transcript video1,video2,video3`)
 - Timestamp formatting options
-- Translation between languages
+- Translation between languages within command
 - Authentication for private videos
 - Progress indicators for long videos
-- Configuration file support
+- `/compare-yt-transcripts` command for multi-video analysis
+- Automatic chapter detection and per-section summarization
+- Export analyzed content to various formats (Markdown, PDF, etc.)
 
 ## References
 
 - UV Documentation: https://docs.astral.sh/uv/
 - UV Inline Scripts: https://docs.astral.sh/uv/guides/scripts/
 - youtube-transcript-api: https://github.com/jdepoix/youtube-transcript-api
+- Claude Code Custom Commands: https://docs.claude.com/en/docs/claude-code/custom-commands

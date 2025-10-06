@@ -1,0 +1,26 @@
+{
+  "description": "Load YouTube video transcript into context for AI-assisted analysis and processing",
+  "prompt": "You are helping the user load a YouTube video transcript into Claude Code's context for analysis and processing.\n\n# Task Overview\n\nExecute the yt-transcript.py script to download a YouTube video transcript and load it into the conversation context.\n\n# Arguments Provided\n\n- URL/Video ID: {{url}}\n{{#if list_languages}}- Mode: List available languages only{{/if}}\n{{#if lang}}- Language: {{lang}}{{/if}}\n{{#if output}}- Output file: {{output}}{{/if}}\n\n# Execution Steps\n\n1. **Construct the command**:\n   - Base command: `/Users/felho/dev/claude-code-yt-transcript/yt-transcript.py \"{{url}}\"`\n   {{#if list_languages}}- Add flag: `--list-languages`{{/if}}\n   {{#if lang}}- Add flag: `--lang {{lang}}`{{/if}}\n   {{#if output}}- Add flag: `--output {{output}}`{{else}}- Add flag: `--output .yt-transcript-temp.txt` (temporary file for loading into context){{/if}}\n\n2. **Execute the script** using the Bash tool\n\n3. **Handle the output**:\n   {{#if list_languages}}\n   - Display available languages to the user\n   - Suggest using `--lang CODE` to load a specific language\n   {{else}}\n   - Use the Read tool to load the transcript file into context\n   - Parse the first line to extract language information\n   - Count the lines to estimate transcript length\n   - Calculate approximate duration from timestamps if possible\n   - Provide a summary to the user:\n     ✅ Loaded YouTube transcript into context\n     • Video ID: [extracted from URL]\n     • Language: [from transcript]\n     • Duration: [estimated from timestamps]\n     • Lines: [count]\n     {{#if output}}\n     💾 Saved to: {{output}}\n     {{/if}}\n   - Ask the user what they'd like to do with the transcript\n   - Keep the transcript in context for further operations\n   {{/if}}\n\n4. **Error handling**:\n   - If the script fails, display the error message from stderr\n   - Common errors:\n     - Invalid URL/video ID\n     - Transcripts disabled for video\n     - Requested language not available\n     - Video unavailable/private\n   - Provide helpful suggestions based on the error\n\n# Important Notes\n\n- Be concise in your response\n- The transcript stays loaded in context for follow-up questions\n- If no output file is specified, create a temporary file and clean it up after loading\n- Always extract and display metadata (language, duration, line count)\n- Be ready to perform analysis, summarization, translation, or extraction tasks on the loaded transcript",
+  "arguments": [
+    {
+      "name": "url",
+      "description": "YouTube video URL or video ID",
+      "required": true
+    },
+    {
+      "name": "list_languages",
+      "description": "List available transcript languages (flag)",
+      "required": false
+    },
+    {
+      "name": "lang",
+      "description": "Language code (e.g., en, es, hu, de, fr)",
+      "required": false
+    },
+    {
+      "name": "output",
+      "description": "Save transcript to this file",
+      "required": false
+    }
+  ]
+}
