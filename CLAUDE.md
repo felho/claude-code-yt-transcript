@@ -11,7 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This project uses UV's inline script dependency system - **no virtual environments, no requirements.txt, no pyproject.toml**. Dependencies are declared directly in the script header:
 
 ```python
-#!/usr/bin/env -S uv run
+#!/usr/bin/env -S uv run --script
 # /// script
 # dependencies = [
 #   "youtube-transcript-api",
@@ -159,7 +159,7 @@ The core functionality is intentionally a single executable file. Do NOT create:
 
 ### Shebang Requirement
 
-The script must start with `#!/usr/bin/env -S uv run` to be directly executable. Maintain execute permissions with `chmod +x yt-transcript.py`.
+The script must start with `#!/usr/bin/env -S uv run --script` to be directly executable. The `--script` flag prevents recursive invocation when run via symlink. Maintain execute permissions with `chmod +x yt-transcript.py`.
 
 ### Testing Changes
 

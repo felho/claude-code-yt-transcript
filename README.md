@@ -80,8 +80,8 @@ mkdir -p ~/.claude/commands/
 ln -s "$(pwd)/.claude/commands/load-yt-transcript.md" ~/.claude/commands/
 
 # Install script globally
-sudo ln -s "$(pwd)/yt-transcript.py" /usr/local/bin/yt-transcript
 chmod +x yt-transcript.py
+sudo ln -s "$(pwd)/yt-transcript.py" /usr/local/bin/yt-transcript
 ```
 
 ## Usage
