@@ -1,7 +1,7 @@
 ---
 description: Load YouTube video transcript into context for AI-assisted analysis and processing
 argument-hint: <url> [--list-languages] [--lang CODE] [--output FILE]
-allowed-tools: Bash(yt-transcript.py:*), Bash(./yt-transcript.py:*)
+allowed-tools: Bash(yt-transcript:*), Bash(./yt-transcript.py:*), Bash(/usr/local/bin/yt-transcript:*)
 ---
 
 You are helping the user load a YouTube video transcript into Claude Code's context for analysis and processing.
@@ -23,8 +23,9 @@ Arguments: $ARGUMENTS
 
 2. **Construct the command**:
 
-   - Try `yt-transcript.py` first (if installed globally in PATH)
-   - Fall back to `./yt-transcript.py` if local execution needed
+   - Try `yt-transcript` first (if installed globally via symlink)
+   - Fall back to `/usr/local/bin/yt-transcript` if in PATH
+   - Fall back to `./yt-transcript.py` if executing from project directory
    - Add any flags from remaining arguments
 
 3. **Execute the script** using the Bash tool
