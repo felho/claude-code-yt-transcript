@@ -16,6 +16,8 @@ Arguments: $ARGUMENTS
 
 # Execution Steps
 
+**IMPORTANT:** The user invoked this command explicitly. They want you to run the yt-transcript script immediately with the provided arguments.
+
 1. **Parse arguments**:
 
    - Extract URL/video ID from first argument
@@ -27,8 +29,10 @@ Arguments: $ARGUMENTS
    - Fall back to `/usr/local/bin/yt-transcript` if in PATH
    - Fall back to `./yt-transcript.py` if executing from project directory
    - Add any flags from remaining arguments
+   - **Use only ONE command at a time** (no `||` fallback chains or `2>&1` redirects)
 
-3. **Execute the script** using the Bash tool
+3. **Run the script** (user explicitly requested this via the slash command):
+   - Use the Bash tool to execute yt-transcript
 
 4. **Handle the output**:
 
