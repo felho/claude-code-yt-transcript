@@ -28,6 +28,7 @@ Arguments: $ARGUMENTS
    - Try `yt-transcript` first (if installed globally via symlink)
    - Fall back to `/usr/local/bin/yt-transcript` if in PATH
    - Fall back to `./yt-transcript.py` if executing from project directory
+   - **CRITICAL: Always wrap the URL/video ID argument in double quotes** to prevent shell globbing errors
    - Add any flags from remaining arguments
    - **Use only ONE command at a time** (no `||` fallback chains or `2>&1` redirects)
 
